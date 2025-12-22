@@ -1,7 +1,0 @@
-a %12+23+0$hhn b %0x12+23+1$hhn cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc %0x12+23+3$hhn ddddddddddddddddddd %0x12+23+2$hhn Z 0x08049813 0x08049812 0x08049811 0x08049810
-
-
-a%41$hhnb%42$hhncccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc%44$hhnddddddddddddddddddd%43$hhnZ 0x08049813 0x08049812 0x08049811 0x08049810
-
-a %0x13$hhn b %0x12$hhn c*0x42 %0x10$hhn d*0x13 %0x11$hhn 
-

