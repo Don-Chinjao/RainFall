@@ -1,0 +1,3 @@
+auth new
+service aaaaaaaaaaaaaaaaaaaaaaaaaaaa
+login

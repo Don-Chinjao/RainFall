@@ -1,10 +1,10 @@
 I have two allocated structures of 8 bytes each (each struct contains an int and
-a char*), with the metadata chunks they are 10 bytes big each.
+a char*), with the metadata chunks they are 16 bytes big each.
 
 Near the top of the stack (at 0x1c and 0x18) we have the two addresses of the structure ptrs
 These ptrs are allocated on the heap. Here's a representation of the heap at
-the address of *ptr (dereferencing the first struct ptr, which is the value at
-the address returned by the first malloc).
+the address of *(ptr-8) (dereferencing the first struct ptr, which is the value at
+the address returned by the first malloc, minus 8 to start at malloc metadatas).
 
 [prev_size][size][uint32_t, char*][prev_size][size][char allocated space]
       1       2      3        4        5        6            7        
@@ -17,8 +17,8 @@ the address returned by the first malloc).
 
 After these, strcpy will be call twice (with program argument as sources) to 
 write characters at char ptrs of both struct. Since there's no size check,
-we can write as many characters as we want on the heap. So the first heap call
-writes on (4), the idea is to write on (11) to change the ptr address, so that the
+we can write as many characters as we want on the heap. So the first strcpy call
+writes on the addr stored at (4), the idea is to write on (11) to change the ptr address, so that the
 second strcpy call writes to a chosen memory location instead of (14)
 Here I will try to write on the .got.plt to change the addr of puts function to
 the one of m
