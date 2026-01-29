@@ -1,7 +1,5 @@
-./bonus1 -2147483637 "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaFLOW"
-
-argv[1] will be returned as an int by atoi in n 
-later, memcpy write argv[2] to dest (which is located BEFORE n).
+argv[1] is be returned as an int by atoi in n 
+Later, memcpy write argv[2] to dest (which is located BEFORE n).
 memcpy will write up to n multiplicated by 4 char (n is implictly converted into an unsigned,
 so the result will be 44 with the chosen arg here). Since dest is located before
 n on the stack and that now we can overflow it, we can control the bytes in n
