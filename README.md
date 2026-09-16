@@ -47,12 +47,6 @@ cat levelX/source.c
 cat levelX/ressources/commands.txt
 ```
 
-Pour une vue rapide de toutes les solutions, lire :
-
-```sh
-cat diroyer_notes.txt
-```
-
 ## Notes
 
 Ce depot sert de support de revision et d'archive de resolution. Les adresses,
