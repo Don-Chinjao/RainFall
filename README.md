@@ -22,9 +22,6 @@ On retrouve generalement dans chaque dossier :
 - `ressources/commands.txt` ou `command.txt` : commandes utiles, payloads et pistes.
 - `walkthrough` : notes de resolution quand disponibles.
 
-Le fichier [`diroyer_notes.txt`](./diroyer_notes.txt) contient une synthese
-personnelle des solutions, organisee par niveau.
-
 ## Methodologie
 
 Les exercices couvrent plusieurs familles classiques d'exploitation :
