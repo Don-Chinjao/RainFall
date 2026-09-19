@@ -1,45 +1,45 @@
 # RainFall
 
-Depot de travail pour le projet **RainFall**, realise en groupe avec
+Repository for **RainFall**, a group project by **diroyer** and
 **Don-Chinjao**.
 
-Ce repository regroupe les sources reconstruites, les commandes d'exploitation,
-les flags recuperes et des notes de resolution pour chaque niveau du projet.
+This repository contains reconstructed source code, exploitation commands,
+recovered flags, and solution notes for each level of the project.
 
 ## Structure
 
-Chaque dossier correspond a un exercice :
+Each directory corresponds to a challenge:
 
 ```text
 level0/ ... level9/
 bonus0/ ... bonus3/
 ```
 
-On retrouve generalement dans chaque dossier :
+Each directory generally contains:
 
-- `source.c` ou `source.cpp` : version reconstruite ou annotee du binaire.
-- `flag` : flag obtenu apres exploitation.
-- `ressources/commands.txt` ou `command.txt` : commandes utiles, payloads et pistes.
-- `walkthrough` : notes de resolution quand disponibles.
+- `source.c` or `source.cpp`: a reconstructed or annotated version of the binary.
+- `flag`: the flag obtained after exploitation.
+- `ressources/commands.txt` or `command.txt`: useful commands, payloads, and leads.
+- `walkthrough`: solution notes, when available.
 
-## Methodologie
+## Methodology
 
-Les exercices couvrent plusieurs familles classiques d'exploitation :
+The challenges cover several common exploitation techniques:
 
-- depassements de tampon ;
-- ecriture en memoire via format string ;
-- ret2libc ;
-- detournement de GOT/PLT ;
-- shellcode via environnement ;
-- comportements limites lies aux entiers signes/non signes ;
-- analyse dynamique avec `gdb`.
+- buffer overflows;
+- arbitrary memory writes using format-string vulnerabilities;
+- ret2libc;
+- GOT/PLT hijacking;
+- shellcode injection through environment variables;
+- edge cases involving signed and unsigned integers;
+- dynamic analysis with `gdb`.
 
-Les commandes ont ete conservees proches de leur forme d'origine afin de garder
-une trace exploitable du raisonnement et des tests effectues.
+The commands have been kept close to their original form to preserve a useful
+record of the reasoning and tests performed during the project.
 
-## Utilisation
+## Usage
 
-Depuis un niveau donne, consulter d'abord le fichier source et les commandes :
+For any given level, start by reviewing the source file and the commands:
 
 ```sh
 ls levelX
@@ -49,6 +49,6 @@ cat levelX/ressources/commands.txt
 
 ## Notes
 
-Ce depot sert de support de revision et d'archive de resolution. Les adresses,
-offsets et payloads peuvent dependre de l'environnement RainFall utilise pendant
-le projet.
+This repository serves as both a study resource and a solution archive.
+Addresses, offsets, and payloads may depend on the RainFall environment used
+during the project.
